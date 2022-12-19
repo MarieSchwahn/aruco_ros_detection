@@ -106,6 +106,12 @@ public:
         break;
     }
 
+    //set dictionary
+    //mDetector.setDictionary("ARUCO_MIP_16h3", 0);
+    aruco::MarkerDetector::Params params_new = mDetector.getParameters();
+    std::string dictionary = params_new.dictionary;
+    std::cout << dictionary << std::endl;
+
     // Print parameters of ArUco marker detector:
     ROS_INFO_STREAM("Threshold method: " << thresh_method);
 
@@ -125,7 +131,8 @@ public:
     ROS_INFO_STREAM("Marker size min: " << min_marker_size << "% of image area");
     ROS_INFO_STREAM("Detection mode: " << detection_mode);
 
-    image_sub = it.subscribe("/image", 1, &ArucoSimple::image_callback, this);
+    //image_sub = it.subscribe("/image", 1, &ArucoSimple::image_callback, this);
+    image_sub = it.subscribe("/camera", 1, &ArucoSimple::image_callback, this);
     cam_info_sub = nh.subscribe("/camera_info", 1, &ArucoSimple::cam_info_callback, this);
 
     image_pub = it.advertise("result", 1);
@@ -210,6 +217,7 @@ public:
         // for each marker, draw info and its boundaries in the image
         for (std::size_t i = 0; i < markers.size(); ++i)
         {
+          //std::cout << markers[i].id << std::endl;
           // only publishing the selected marker
           if (markers[i].id == marker_id)
           {
