@@ -206,7 +206,7 @@ public:
     ThresMethod thresMethod = THRES_ADAPTIVE;
     int NAttemptsAutoThresFix =
         3;  // number of times that tries a random threshold in case of THRES_AUTO_FIXED
-    int trackingMinDetections = 0;  // no tracking
+    int trackingMinDetections = 3;  // no tracking
 
 
     // Threshold parameters
